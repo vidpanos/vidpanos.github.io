@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<!-- Code head -->
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="VidPanos">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VidPanos: Generative Panoramic Videos from Casual Panning Videos</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/vidpanos-icon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <style>
+    .gallery-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        margin: auto;
+    }
+
+    .video-display {
+        height: 200px;
+        margin-bottom: 10px;
+    }
+
+    .thumbnails-container {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        overflow-x: hidden;
+    }
+
+    .thumbnails {
+        display: flex;
+        transition: transform 0.3s ease;
+    }
+
+    .thumbnail {
+        margin: 0 5px;
+        cursor: pointer;
+        opacity: 0.6;
+    }
+
+    .thumbnail img {
+        height: 60px;
+        object-fit: cover;
+    }
+
+    .thumbnail.active {
+        opacity: 1;
+    }
+
+    .arrow {
+        cursor: pointer;
+        font-size: 2rem;
+        padding: 0 10px;
+    }
+
+</style>
+</head>
+
+
+
+<!-- Code body -->
+<body>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <!-- [Comment] The home button -->
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://jingweim.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <!-- [Comment] The toggle next to home button -->
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://jingweim.github.io/totems">
+            Totems
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- Title and authors -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><img src="./static/images/vidpanos-icon.png" alt="logo" style="width:71px;height:64px;"/>&nbsp;VidPanos: Generative Panoramic Videos from Casual Panning Videos</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://jingweim.github.io">Jingwei Ma</a><sup>1</sup>,&ensp;</span>
+            <span class="author-block">
+              <a href="https://erikalu.com/">Erika Lu</a><sup>2</sup>,&ensp;</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=-KSDNZQAAAAJ&hl=en">Roni Paiss</a><sup>2</sup>,&ensp;
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=en&user=I2qheksAAAAJ">Shiran Zada</a><sup>2</sup>,&ensp;
+            </span>
+            <span class="author-block">
+              <a href="https://holynski.org/">Aleksander Holynski</a><sup>2</sup>,&ensp;
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="https://www.weizmann.ac.il/math/dekel/home">Tali Dekel</a><sup>2,3</sup>,&ensp;
+            </span>
+            <span class="author-block">
+              <a href="https://homes.cs.washington.edu/~curless/">Brian Curless</a><sup>1</sup>,&ensp;
+            </span>
+            <span class="author-block">
+              <a href="https://people.csail.mit.edu/mrub/">Michael Rubinstein</a><sup>2</sup>,&ensp;
+            </span>
+            <span class="author-block">
+              <a href="https://people.csail.mit.edu/fcole/">Forrester Cole</a><sup>2</sup>
+            </span>
+          </div>
+
+          <br>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Washington,&ensp;</span>
+            <span class="author-block"><sup>2</sup>Google DeepMind,&ensp;</span>
+            <span class="author-block"><sup>3</sup>Weitzmann Institute of Science</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./static/pdfs/arxiv_v3.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtu.be/93HHOnISoqk"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://colab.research.google.com/drive/1yPWg5-5iNkZBglD9m4yZxgDUoE27kfbX?usp=drive_link"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-google"></i>
+                  </span>
+                  <span>Colab (Metrics)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/jingweim/vidpanos"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Benchmark</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="./static/supp/index.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Supplementary (All Results)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Teaser figure -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/images/teaser.mov"
+                type="video/mp4">
+      </video>
+      <!-- <img src="./static/images/teaser.png" alt="teaser"/> -->
+      <h2 class="subtitle has-text-centered">
+        
+          <!-- VidPanos upgrades phone panorama mode from image to video. -->
+        <!-- VidPanos converts phone-captured panning videos into video panoramas, instead of image panoramas. -->
+        <span class="dnerf">VidPanos</span> converts phone-captured panning videos into video panoramas.
+      </h2>
+    </div>
+
+    <p style="text-align: center;">
+      Skip to:  &nbsp;&nbsp;
+      <!-- <a href="#results">[Results]</a> &nbsp; -->
+      <a href="#abstract">[Abstract]</a> &nbsp;
+      <a href="#video">[Video]</a> &nbsp;
+      <a href="#framework">[Method]</a> &nbsp;
+      <a href="#baseline">[More Results & Baseline]</a> &nbsp;
+      <!-- <a href="#acknowledge">[Acknowledgement]</a> &nbsp; -->
+      <a href="#BibTeX">[Cite]</a> &nbsp;
+    </p>
+    <br><br>
+  </div>
+</section>
+
+
+
+
+<!-- <section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+       <h2 class="title is-3">Results</h2> -->
+        <div style="background-color: #f0f0f0; padding: 20px;">
+          <div class="gallery-container">
+              <!-- Large Video Display -->
+              <video id="mainVideo1" class="video-display" autoplay controls muted loop playsinline>
+                  <source src="./static/images/real_results/dynibar_input.mp4" type="video/mp4">
+              </video>
+              <video id="mainVideo2" class="video-display" autoplay controls muted loop playsinline>
+                  <source src="./static/images/real_results/dynibar_ours_lumiere.mp4" type="video/mp4">
+              </video>
+
+              <!-- Thumbnails Scroll -->
+              <div class="thumbnails-container">
+                  <!-- <div class="arrow" id="leftArrow">&lt;</div> -->
+                  <div class="thumbnails" id="thumbnails">
+                      <div class="thumbnail active" data-video1="./static/images/real_results/dynibar_input.mp4" data-video2="./static/images/real_results/dynibar_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/dynibar_thumb.jpg" alt="Video 12">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/woz_input.mp4" data-video2="./static/images/real_results/woz_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/woz_thumb.jpg" alt="Video 13">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190814_143940_input.mp4" data-video2="./static/images/real_results/1-VID_20190814_143940_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/1-VID_20190814_143940_thumb.jpg" alt="Video 4">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190619_193400_input.mp4" data-video2="./static/images/real_results/1-VID_20190619_193400_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/1-VID_20190619_193400_thumb.jpg" alt="Video 2">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190619_193419_input.mp4" data-video2="./static/images/real_results/1-VID_20190619_193419_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/1-VID_20190619_193419_thumb.jpg" alt="Video 3">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160323_102236_01_input.mp4" data-video2="./static/images/real_results/2-VID_20160323_102236_01_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/2-VID_20160323_102236_01_thumb.jpg" alt="Video 5">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160326_121131_01_input.mp4" data-video2="./static/images/real_results/2-VID_20160326_121131_01_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/2-VID_20160326_121131_01_thumb.jpg" alt="Video 6">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160326_121131_02_input.mp4" data-video2="./static/images/real_results/2-VID_20160326_121131_02_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/2-VID_20160326_121131_02_thumb.jpg" alt="Video 7">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20170319_133226_01_input.mp4" data-video2="./static/images/real_results/2-VID_20170319_133226_01_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/2-VID_20170319_133226_01_thumb.jpg" alt="Video 8">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20170319_133226_02_input.mp4" data-video2="./static/images/real_results/2-VID_20170319_133226_02_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/2-VID_20170319_133226_02_thumb.jpg" alt="Video 9">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20181122_155712_01_input.mp4" data-video2="./static/images/real_results/2-VID_20181122_155712_01_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/2-VID_20181122_155712_01_thumb.jpg" alt="Video 10">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20181122_155712_02_input.mp4" data-video2="./static/images/real_results/2-VID_20181122_155712_02_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/2-VID_20181122_155712_02_thumb.jpg" alt="Video 11">
+                      </div>
+                      <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190613_094624_input.mp4" data-video2="./static/images/real_results/1-VID_20190613_094624_ours_lumiere.mp4">
+                          <img src="./static/images/real_results/1-VID_20190613_094624_thumb.jpg" alt="Video 1">
+                      </div>
+
+                  </div>
+                  <!-- <div class="arrow" id="rightArrow">&gt;</div> -->
+              </div>
+          </div>
+        </div>
+      <!-- </div>
+    </div>
+  </div>
+</section> -->
+
+
+<script>
+  const mainVideo1 = document.getElementById('mainVideo1');
+  const mainVideo2 = document.getElementById('mainVideo2');
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  let currentThumbnail = 0;
+
+  // Function to change the main video based on the clicked thumbnail
+  thumbnails.forEach((thumbnail, index) => {
+      thumbnail.addEventListener('click', function () {
+          // Remove active class from all thumbnails
+          thumbnails.forEach(tn => tn.classList.remove('active'));
+
+          // Add active class to the clicked thumbnail
+          this.classList.add('active');
+
+          // Change main video source
+          mainVideo1.src = this.getAttribute('data-video1');
+          mainVideo1.play();
+          mainVideo2.src = this.getAttribute('data-video2');
+          mainVideo2.play();
+
+          // Update the current thumbnail index
+          currentThumbnail = index;
+      });
+  });
+
+  // Thumbnail scrolling logic
+  const thumbnailsContainer = document.getElementById('thumbnails');
+  const leftArrow = document.getElementById('leftArrow');
+  const rightArrow = document.getElementById('rightArrow');
+
+  leftArrow.addEventListener('click', () => {
+      thumbnailsContainer.scrollBy({ left: -150, behavior: 'smooth' });
+  });
+
+  rightArrow.addEventListener('click', () => {
+      thumbnailsContainer.scrollBy({ left: 150, behavior: 'smooth' });
+  });
+</script>
+
+
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Panoramic image stitching provides a unified, wide-angle view of a scene that extends beyond the camera's field of view. Stitching frames of a panning video into a panoramic photograph is a well-understood problem for stationary scenes, but when objects are moving, a still panorama cannot capture the scene.
+          </p>
+          <p>
+            We present a method for synthesizing a panoramic video from a casually-captured panning video, as if the original video were captured with a wide-angle camera. We pose panorama synthesis as a space-time outpainting problem, where we aim to create a full panoramic video of the same length as the input video. Consistent completion of the space-time volume requires a powerful, realistic prior over video content and motion, for which we adapt generative video models. Existing generative models do not, however, immediately extend to panorama completion, as we show. We instead apply video generation as a component of our panorama synthesis system, and demonstrate how to exploit the strengths of the models while minimizing their limitations. Our system can create video panoramas for a range of in-the-wild scenes including people, vehicles, and flowing water, as well as stationary background features.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <br><br>
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered" id="video">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/93HHOnISoqk?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+<!-- Framework section -->
+<section class="section" id="framework">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">How it works</h2>
+        <div class="content has-text-justified">
+          <p>
+            We first project the input panning video on to a panoramic canvas (see figure below). We then try to complete this partial space-time volume using a generative video model with outpainting capabilities.
+          </p>
+          <p>
+            Since the input videos span a wider spatial and temporal range than typical generative video models' context window sizes, we use <a href="#temporal">Temporal Coarse-to-Fine</a> and 
+            <a href="#spatial">Spatial Aggregation</a> strategies to complete the video panoramas.
+          </p>
+          <h3 class="title is-4" id="temporal">Temporal Coarse-to-Fine</h3>
+          <img src="./static/images/vidpanos_system_diagram_v6.jpg" alt="teaser"/>
+          <p>The registered input video (b) is temporally downsampled with temporal prefiltering. A base panoramic video is synthesized at the coarsest temporal scale (top), then gradually
+            refined by temporal upsampling, merging, and resynthesis (c). Finally, a spatial super-resolution pass is applied and the original input pixels are merged with
+            the result to produce the output video (d).</p>
+          <h3 class="title is-4" id="spatial">Spatial Aggregation</h3>
+          <div style="text-align: center;">
+            <img src="./static/images/vidpanos_spatial_distributions_v1.jpg" alt="teaser" style="height: 300px;"/>
+          </div>
+          <p>
+            Spatially, we cover the video width using sliding windows and fuse them into one coherent video. To generate a sample in the overlap (red), 
+            we linearly interpolate the two predicted probability distributions (purple, orange) and sample from the aggregated distribution
+            (brown). With a token-based method the distribution is a discrete distribution over the vocabulary. With diffusion, the distribution is a Gaussian
+            distribution over pixel values, represented by 𝜇 and Σ.
+            <!-- Spatial aggregation of predicted distributions. To generate a sample
+            in the overlap (red), we linearly interpolate the two predicted probability
+            distributions (purple, orange) and sample from the aggregated distribution
+            (brown). With a token-based method the distribution is a discrete distribution over the vocabulary. With diffusion, the distribution is a Gaussian
+            distribution over pixel values, represented by 𝜇 and Σ. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-small" id="baseline">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3">More Results & Baseline</h2>
+      <p>Below we show more results on synthetic panning videos and show comparison with two flow-based video completion methods, <a href="https://shangchenzhou.com/projects/ProPainter/">ProPainter</a> and <a href="https://github.com/MCG-NKU/E2FGVI">E2FGVI</a>.</p>
+      <br>
+      <div id="results-carousel" class="carousel results-carousel">
+
+      <div class="item item-1" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/GZigq4DDYyg_start=00000_end=00176.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <!-- <div class="item item-2" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/GZigq4DDYyg_start=00500_end=00676.mp4" autoplay controls muted loop playsinline></video>
+      </div> -->
+      <!-- <div class="item item-3" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/IsxcCLbrio0_start=00000_end=00176.mp4" autoplay controls muted loop playsinline></video>
+      </div> -->
+      <!-- <div class="item item-4" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/IsxcCLbrio0_start=00300_end=00476.mp4" autoplay controls muted loop playsinline></video>
+      </div> -->
+      <div class="item item-5" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/IsxcCLbrio0_start=00500_end=00676.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <div class="item item-6" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/Kbp3Sgm7cMU_start=00300_end=00476.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <!-- <div class="item item-7" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/Kbp3Sgm7cMU_start=00500_end=00676.mp4" autoplay controls muted loop playsinline></video>
+      </div> -->
+      <div class="item item-8" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/OdRoOze8UtE_start=00500_end=00676.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <div class="item item-9" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/WQUmzDkDCBg_start=00000_end=00176.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <!-- <div class="item item-10" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/WQUmzDkDCBg_start=00500_end=00676.mp4" autoplay controls muted loop playsinline></video>
+      </div> -->
+      <div class="item item-11" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/YzJB2CXcsRA_start=00300_end=00476.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <div class="item item-12" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/YzJB2CXcsRA_start=00500_end=00676.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <div class="item item-13" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/bKsBG43rstY_start=00300_end=00476.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <div class="item item-14" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/oT1wpBY2XBw_start=00300_end=00476.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <!-- <div class="item item-15" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/oT1wpBY2XBw_start=00500_end=00676.mp4" autoplay controls muted loop playsinline></video>
+      </div> -->
+      <div class="item item-16" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/pPWvYtHP3H4_start=00300_end=00476.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <div class="item item-17" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/sOeGOWAc5Ng_start=00000_end=00176.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <div class="item item-18" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/wQcxxO0dG0A_start=00000_end=00176.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <div class="item item-19" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/zlR2h-a4ZYQ_start=00000_end=00176.mp4" autoplay controls muted loop playsinline></video>
+      </div>
+      <!-- <div class="item item-20" style="display: flex; flex-direction: column; align-items: center;">
+          <video src="./static/images/flow_baselines/zlR2h-a4ZYQ_start=00300_end=00476.mp4" autoplay controls muted loop playsinline></video>
+      </div> -->
+
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>To be added</code></pre>
+    <!-- <pre><code>@article{ma2022totems,
+  author    = {Ma, Jingwei and Chai, Lucy and Huh, Minyoung and Wang, Tongzhou and Lim, Ser-Nam and Isola, Phillip and Torralba, Antonio},
+  title     = {Totems: Physical Objects for Verifying Visual Integrity},
+  journal   = {ECCV},
+  year      = {2022},
+}</code></pre> -->
+  </div>
+</section>
+
+<section class="section" id="acknowledge"></section>
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    <!-- <p> -->
+      We thank Charles Hermann, Omer Tov and Ruben Villegas for their help and feedback.
+    <!-- </p> -->
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website template is borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<button type="button" onclick="topFunction()" id="myBtn" title="Go to top">Top</button> 
+
+</body>
+</html>

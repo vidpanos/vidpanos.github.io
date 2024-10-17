@@ -1,0 +1,898 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>VidPanos: Synthesizing Video Panoramas from Panning Videos</title>
+<link href="./assets/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="container">
+  <br>
+  <h1 align="center">VidPanos: Generative Panoramic Videos from</h1>
+  <h1 align="center">Casual Panning Videos</h1>
+  <br>
+<h2 align="center">Supplementary Material</h2>
+<br>
+<p align="center">Jingwei Ma, Erika Lu, Roni Paiss, Shiran Zada, Aleksander Holynski</p>
+<p align="center">Tali Dekel, Brian Curless, Michael Rubinstein, Forrester Cole</p>
+  <p>&nbsp;</p>
+  <ul>
+    <!-- <li><a href="assets/cameraready.mp4" target="_blank">Supplementary Video - quick overview of the paper and method walkthough with examples</a></li>
+    <li><a href="assets/supplementary.pdf" target="_blank">Supplementary PDF - with implementation details</a></li><br> -->
+    <li><a href="#real">#1 Real Video Results & Comparisons (Section 4.4, Figure 9)</a></li>
+    <li><a href="#synth">#2 Synthetic Video Results (Section 4.3, Figures 5, 8)</a></li><br>
+    <li><a href="#magvit">#3 MAGVIT Comparisons (Section 4.3) </a></li>
+    <li><a href="#flowbaselines">#4 Flow-based Method Comparisons (Section 4.3, Table 1) </a></li><br>
+    <li><a href="#ablations">#5 Ablations (Section 4.5, Figure 7) </a></li><br>
+    <li><a href="#flow">#6 Flow Visualizations (Section 4.3, Table 1)</a></li>
+    <li><a href="#waterfall">#7 Comparison with Panoramic Video Textures (Section 4.3, Fig. 6)</a></li>
+    <br>
+    <li><a href="#lowres">#8 Results before spatial super-resolution stage</a></li>
+    <li><a href="#multisample">#9 Baseline results generated with different seeds</a></li>
+</ul>
+  <p>&nbsp;</p>
+	  <hr>
+  <h2 align="left"><a name="real" id="real"></a>#1 Real Video Results & Comparisons</h2>
+  <p align="left">Below we show our diffusion-based results on real videos. Click <a href="assets/real_results.html">here</a> to see the full set of results and comparisons.</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>0</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/dynibar_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/dynibar_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 288px;">
+            <source src="assets/real_results/1-VID_20190814_143940_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 288px;">
+            <source src="assets/real_results/1-VID_20190814_143940_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>2</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/1-VID_20190619_193400_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/1-VID_20190619_193400_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>       
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>3</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20160323_102236_01_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20160323_102236_01_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>   
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>4</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20181122_155712_01_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20181122_155712_01_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>     
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>5</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/1-VID_20190613_094624_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/1-VID_20190613_094624_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>     
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>6</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 288px;">
+            <source src="assets/real_results/2-VID_20181122_155712_02_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 288px;">
+            <source src="assets/real_results/2-VID_20181122_155712_02_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>     
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>7</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20170319_133226_01_input.mp4" type="video/mp4">
+          </video>
+          <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20170319_133226_01_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>     
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>8</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20160326_121131_01_input.mp4" type="video/mp4">
+          </video>
+          <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20160326_121131_01_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>     
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>9</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20160326_121131_02_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20160326_121131_02_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>   
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>10</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20170319_133226_02_input.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/2-VID_20170319_133226_02_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>   
+  <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr>
+        <td align="center"><h3 align="center"><em>Click <a href="assets/real_results.html">here</a> for more real video results.</em></h3></td>
+          </tr>
+    </tbody>
+  </table>        
+	<p align="left">&nbsp;</p>
+  <hr>
+  <h2 align="left"><a name="synth" id="synth"></a>#2 Synthetic Video Results</h2>
+  <p align="left">Below we show results on the four videos that are shown in the paper. Click <a href="assets/synth_results.html">here</a> to see the full set of results.</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>0</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/synth_results/oT1wpBY2XBw_start=00300_end=00476.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/synth_results/Kbp3Sgm7cMU_start=00500_end=00676.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>       
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>2</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/synth_results/IsxcCLbrio0_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>3</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/synth_results/zlR2h-a4ZYQ_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+  <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr>
+        <td align="center"><h3 align="center"><em>Click <a href="assets/synth_results.html">here</a> for more synthetic video results.</em></h3></td>
+          </tr>
+    </tbody>
+  </table>        
+	<p align="left">&nbsp;</p>
+  <hr>
+  <h2 align="left"><a name="magvit" id="magvit"></a>#3 MAGVIT Comparisons</h2>
+  <p align="left">We show comparisons with two ways of running MAGVIT [1] (see <a href=assets/supplementary.pdf>supplementary PDF</a> for details).</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>0 (a)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/magvit/1-oT1wpBY2XBw_start=00300_end=00476.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>0 (b)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/magvit/2-oT1wpBY2XBw_start=00300_end=00476.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1 (a)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/magvit/1-Kbp3Sgm7cMU_start=00500_end=00676.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>       
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1 (b)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/magvit/2-Kbp3Sgm7cMU_start=00500_end=00676.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>       
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>2 (a)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/magvit/1-IsxcCLbrio0_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>2 (b)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/magvit/2-IsxcCLbrio0_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>3 (a)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/magvit/1-zlR2h-a4ZYQ_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>
+  <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>3 (b)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/magvit/2-zlR2h-a4ZYQ_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>
+        <p align="left">&nbsp;</p>
+  <hr>
+  <h2 align="left"><a name="baseline_comparisons" id="flowbaselines"></a>#4 Flow-based Method Comparisons</h2>
+  <p align="left">Below we show comparisons with two flow-based methods, ProPainter [2] and E2FGVI [3]. Click <a href="assets/flow_comparisons.html">here</a> to see the full set of results.</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>0</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/flow_baselines/Kbp3Sgm7cMU_start=00500_end=00676.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/flow_baselines/IsxcCLbrio0_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>       
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>2</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/flow_baselines/zlR2h-a4ZYQ_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>     
+  <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr>
+        <td align="center"><h3 align="center"><em>Click <a href="assets/flow_comparisons.html">here</a> for more comparisons.</em></h3></td>
+          </tr>
+    </tbody>
+  </table>        
+	<p align="left">&nbsp;</p>
+  <hr>
+  <h2 align="left"><a name="ablations" id="ablations"></a>#5 Ablations</h2>
+  <p align="left">We show two ablations for our Lumiere-based method: 1) naive Lumiere and 2) removing temporal coarse-to-fine. We also show two Phenaki-based ablations: naive Phenaki and Phenaki with coarse-to-fine.</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>0</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_lumiere/palace.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1 (a)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_lumiere/oT1wpBY2XBw_start=00300_end=00476.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1 (b)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_phenaki/oT1wpBY2XBw_start=00300_end=00476.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>2 (a)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_lumiere/Kbp3Sgm7cMU_start=00500_end=00676.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>       
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>2 (b)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_phenaki/Kbp3Sgm7cMU_start=00500_end=00676.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>       
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>3 (a)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_lumiere/IsxcCLbrio0_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>3 (b)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_phenaki/IsxcCLbrio0_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>4 (a)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_lumiere/zlR2h-a4ZYQ_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+	<br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>4 (b)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/ablations_phenaki/zlR2h-a4ZYQ_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+
+        <p align="left">&nbsp;</p>
+  <hr>
+  <h2 align="left"><a name="flow" id="flow"></a>#6 Flow Visualizations</h2>
+  <p align="left">We visualize and compare flow computed on our method and on the interpolation baseline. Click <a href="assets/flow.html">here</a> to see more examples.</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>0</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/flow/oT1wpBY2XBw_start=00300_end=00476.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/flow/Kbp3Sgm7cMU_start=00500_end=00676.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>       
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>2</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/flow/IsxcCLbrio0_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>      
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>3</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/flow/zlR2h-a4ZYQ_start=00000_end=00176.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>            
+  <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr>
+        <td align="center"><h3 align="center"><em>Click <a href="assets/flow.html">here</a> for more flow visualizations.</em></h3></td>
+          </tr>
+    </tbody>
+  </table>        
+        <p align="left">&nbsp;</p>
+        <hr>
+  <h2 align="left"><a name="waterfall" id="waterfall"></a>#7 Comparison with Panoramic Video Textures</h2>
+  <p align="left">Below is a comparison with Agarwala, et al. [4].</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3></h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center"><video controls="controls" loop>
+            <source src="assets/waterfall.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>
+
+<!-- Revision update -->
+<p>&nbsp;</p>
+    <hr>
+  <h2 align="left"><a name="lowres" id="lowres"></a>#8 Results before spatial super-resolution stage</h2>
+  <p align="left">Below we show a few "Ours Lumiere" results before versus after the spatial super-resolution stage. For the full set of results click <a href="assets/lowres_lumiere_real.html">here</a>.</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>0</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/lowres_lumiere/dynibar_skate_totalframes160_lowres.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/real_results/dynibar_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>1</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 288px;">
+            <source src="assets/lowres_lumiere/VID_20190814_143940_totalframes84_lowres.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 288px;">
+            <source src="assets/real_results/1-VID_20190814_143940_ours_lumiere.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table> 
+
+
+<p>&nbsp;</p>
+    <hr>
+  <h2 align="left"><a name="multisample" id="multisample"></a>#9 Baseline results generated with different seeds</h2>
+  <p align="left">Below we show a few different samples for the non-deterministic baselines: MAGVIT type 1, naive Phenaki, and naive Lumiere.</p>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>scuba - MAGVIT baseline1 (2 seeds)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/magvit_multisample/oT1wpBY2XBw_start=00300_end=00476/magvit_baseline_s1.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/magvit_multisample/oT1wpBY2XBw_start=00300_end=00476/magvit_baseline.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>ski - MAGVIT baseline1 (2 seeds)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/magvit_multisample/Kbp3Sgm7cMU_start=00500_end=00676/magvit_baseline_s1.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/magvit_multisample/Kbp3Sgm7cMU_start=00500_end=00676/magvit_baseline.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>
+        <br><!-- 
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>scuba - MAGVIT baseline2 (2 seeds)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/magvit_multisample/oT1wpBY2XBw_start=00300_end=00476/magvit_baseline2_s1.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/magvit_multisample/oT1wpBY2XBw_start=00300_end=00476/magvit_baseline2.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>ski - MAGVIT baseline2 (2 seeds)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/magvit_multisample/Kbp3Sgm7cMU_start=00500_end=00676/magvit_baseline2_s1.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/magvit_multisample/Kbp3Sgm7cMU_start=00500_end=00676/magvit_baseline2.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>   -->
+        <!-- <br> -->
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>scuba - Naive Phenaki (2 seeds)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/naive_phenaki_multisample/synth013_oT1wpBY2XBw_start=00300_end=00476/round0_output_0.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/naive_phenaki_multisample/synth013_oT1wpBY2XBw_start=00300_end=00476/round0_output_1.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>ski - Naive Phenaki (2 seeds)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/naive_phenaki_multisample/synth006_Kbp3Sgm7cMU_start=00500_end=00676/round0_output_0.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/naive_phenaki_multisample/synth006_Kbp3Sgm7cMU_start=00500_end=00676/round0_output_1.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>  
+        <br>
+
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>scuba - Naive Lumiere (2 seeds)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/naive_lumiere_multisample/oT1wpBY2XBw_start=00300_end=00476_totalframes88/_outfull_00.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/naive_lumiere_multisample/oT1wpBY2XBw_start=00300_end=00476_totalframes88/_outfull_01.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>        
+        <br>
+  <table width="600" border="0" align="center">
+    <tbody>
+      <tr align="center">
+        <td colspan="5" align="center"><h3>ski - Naive Lumiere (2 seeds)</h3>
+                </td>
+      </tr>
+      <tr>
+        <td align="center">
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/naive_lumiere_multisample/Kbp3Sgm7cMU_start=00500_end=00676_totalframes88/_outfull_00.mp4" type="video/mp4">
+          </video>
+        <video controls="controls" loop style="max-height: 384px;">
+            <source src="assets/naive_lumiere_multisample/Kbp3Sgm7cMU_start=00500_end=00676_totalframes88/_outfull_01.mp4" type="video/mp4">
+          </video></td>
+          </tr>
+    </tbody>
+  </table>  
+        <br>
+
+<br>
+<hr>
+
+<h2 align="left">References</h2>
+<p>
+[1] Lijun Yu, Yong Cheng, Kihyuk Sohn, José Lezama, Han Zhang, Huiwen Chang, Alexander G. Hauptmann, Ming-Hsuan Yang, Yuan Hao, Irfan Essa, Lu Jiang. <em>MAGVIT: Masked Generative Video Transformer.</em> CVPR 2023.
+</p>
+<p>
+[2] Shangchen Zhou, Chongyi Li, Kelvin C.K Chan, and Chen Change Loy. <em>ProPainter: Improving Propagation and Transformer for Video Inpainting.</em> ICCV 2023.
+</p>
+<p>
+[3] Zhen Li, Cheng-Ze Lu, Jianhua Qin, Chun-Le Guo, and Ming-Ming Cheng. <em>Towards An End-to-End Framework for Flow-Guided Video Inpainting.</em> CVPR 2022.
+</p>
+<p>
+[4] Aseem Agarwala, Ke Colin Zheng, Chris Pal, Maneesh Agrawala, Michael Cohen, Brian Curless, David Salesin, and Richard Szeliski. <em>Panoramic video textures.</em> SIGGRAPH 2005.
+</p>
+</div>
+
+
+</body></html>
+
+
