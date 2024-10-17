@@ -38,8 +38,12 @@
         margin: auto;
     }
 
-    .video-display {
+    .small-video-display {
         height: 200px;
+        margin-bottom: 10px;
+    }
+    .video-display {
+        height: 300px;
         margin-bottom: 10px;
     }
 
@@ -241,10 +245,13 @@
         <div style="background-color: #f0f0f0; padding: 20px;">
           <div class="gallery-container">
               <!-- Large Video Display -->
-              <video id="mainVideo1" class="video-display" autoplay controls muted loop playsinline>
+              <video id="mainVideo1" class="small-video-display" autoplay controls muted loop playsinline>
                   <source src="./static/images/real_results/dynibar_input.mp4" type="video/mp4">
               </video>
               <video id="mainVideo2" class="video-display" autoplay controls muted loop playsinline>
+                  <source src="./static/images/real_results/dynibar_input_registered.mp4" type="video/mp4">
+              </video>
+              <video id="mainVideo3" class="video-display" autoplay controls muted loop playsinline>
                   <source src="./static/images/real_results/dynibar_ours_lumiere.mp4" type="video/mp4">
               </video>
 
@@ -252,42 +259,42 @@
               <div class="thumbnails-container">
                   <!-- <div class="arrow" id="leftArrow">&lt;</div> -->
                   <div class="thumbnails" id="thumbnails">
-                      <div class="thumbnail active" data-video1="./static/images/real_results/dynibar_input.mp4" data-video2="./static/images/real_results/dynibar_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/dynibar_thumb.jpg" alt="Video 12">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190814_143940_input.mp4" data-video2="./static/images/real_results/1-VID_20190814_143940_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/1-VID_20190814_143940_thumb.jpg" alt="Video 4">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190619_193400_input.mp4" data-video2="./static/images/real_results/1-VID_20190619_193400_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/1-VID_20190619_193400_thumb.jpg" alt="Video 2">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190619_193419_input.mp4" data-video2="./static/images/real_results/1-VID_20190619_193419_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/1-VID_20190619_193419_thumb.jpg" alt="Video 3">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160323_102236_01_input.mp4" data-video2="./static/images/real_results/2-VID_20160323_102236_01_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/2-VID_20160323_102236_01_thumb.jpg" alt="Video 5">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160326_121131_01_input.mp4" data-video2="./static/images/real_results/2-VID_20160326_121131_01_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/2-VID_20160326_121131_01_thumb.jpg" alt="Video 6">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160326_121131_02_input.mp4" data-video2="./static/images/real_results/2-VID_20160326_121131_02_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/2-VID_20160326_121131_02_thumb.jpg" alt="Video 7">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20170319_133226_01_input.mp4" data-video2="./static/images/real_results/2-VID_20170319_133226_01_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/2-VID_20170319_133226_01_thumb.jpg" alt="Video 8">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20170319_133226_02_input.mp4" data-video2="./static/images/real_results/2-VID_20170319_133226_02_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/2-VID_20170319_133226_02_thumb.jpg" alt="Video 9">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20181122_155712_01_input.mp4" data-video2="./static/images/real_results/2-VID_20181122_155712_01_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/2-VID_20181122_155712_01_thumb.jpg" alt="Video 10">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20181122_155712_02_input.mp4" data-video2="./static/images/real_results/2-VID_20181122_155712_02_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/2-VID_20181122_155712_02_thumb.jpg" alt="Video 11">
-                      </div>
-                      <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190613_094624_input.mp4" data-video2="./static/images/real_results/1-VID_20190613_094624_ours_lumiere.mp4">
-                          <img src="./static/images/real_results/1-VID_20190613_094624_thumb.jpg" alt="Video 1">
-                      </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/dynibar_input.mp4" data-video2="./static/images/real_results/dynibar_input_registered.mp4" data-video3="./static/images/real_results/dynibar_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/dynibar_thumb.jpg" alt="Video 12">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190814_143940_input.mp4" data-video2="./static/images/real_results/1-VID_20190814_143940_input_registered.mp4" data-video3="./static/images/real_results/1-VID_20190814_143940_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/1-VID_20190814_143940_thumb.jpg" alt="Video 4">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190619_193400_input.mp4" data-video2="./static/images/real_results/1-VID_20190619_193400_input_registered.mp4" data-video3="./static/images/real_results/1-VID_20190619_193400_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/1-VID_20190619_193400_thumb.jpg" alt="Video 2">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190619_193419_input.mp4" data-video2="./static/images/real_results/1-VID_20190619_193419_input_registered.mp4" data-video3="./static/images/real_results/1-VID_20190619_193419_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/1-VID_20190619_193419_thumb.jpg" alt="Video 3">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160323_102236_01_input.mp4" data-video2="./static/images/real_results/2-VID_20160323_102236_01_input_registered.mp4" data-video3="./static/images/real_results/2-VID_20160323_102236_01_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/2-VID_20160323_102236_01_thumb.jpg" alt="Video 5">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160326_121131_01_input.mp4" data-video2="./static/images/real_results/2-VID_20160326_121131_01_input_registered.mp4" data-video3="./static/images/real_results/2-VID_20160326_121131_01_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/2-VID_20160326_121131_01_thumb.jpg" alt="Video 6">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20160326_121131_02_input.mp4" data-video2="./static/images/real_results/2-VID_20160326_121131_02_input_registered.mp4" data-video3="./static/images/real_results/2-VID_20160326_121131_02_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/2-VID_20160326_121131_02_thumb.jpg" alt="Video 7">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20170319_133226_01_input.mp4" data-video2="./static/images/real_results/2-VID_20170319_133226_01_input_registered.mp4" data-video3="./static/images/real_results/2-VID_20170319_133226_01_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/2-VID_20170319_133226_01_thumb.jpg" alt="Video 8">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20170319_133226_02_input.mp4" data-video2="./static/images/real_results/2-VID_20170319_133226_02_input_registered.mp4" data-video3="./static/images/real_results/2-VID_20170319_133226_02_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/2-VID_20170319_133226_02_thumb.jpg" alt="Video 9">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20181122_155712_01_input.mp4" data-video2="./static/images/real_results/2-VID_20181122_155712_01_input_registered.mp4" data-video3="./static/images/real_results/2-VID_20181122_155712_01_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/2-VID_20181122_155712_01_thumb.jpg" alt="Video 10">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/2-VID_20181122_155712_02_input.mp4" data-video2="./static/images/real_results/2-VID_20181122_155712_02_input_registered.mp4" data-video3="./static/images/real_results/2-VID_20181122_155712_02_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/2-VID_20181122_155712_02_thumb.jpg" alt="Video 11">
+                    </div>
+                    <div class="thumbnail active" data-video1="./static/images/real_results/1-VID_20190613_094624_input.mp4" data-video2="./static/images/real_results/1-VID_20190613_094624_input_registered.mp4" data-video3="./static/images/real_results/1-VID_20190613_094624_ours_lumiere.mp4">
+                        <img src="./static/images/real_results/1-VID_20190613_094624_thumb.jpg" alt="Video 1">
+                    </div>
 
                   </div>
                   <!-- <div class="arrow" id="rightArrow">&gt;</div> -->
@@ -303,6 +310,7 @@
 <script>
   const mainVideo1 = document.getElementById('mainVideo1');
   const mainVideo2 = document.getElementById('mainVideo2');
+  const mainVideo3 = document.getElementById('mainVideo3');
   const thumbnails = document.querySelectorAll('.thumbnail');
   let currentThumbnail = 0;
 
@@ -320,6 +328,8 @@
           mainVideo1.play();
           mainVideo2.src = this.getAttribute('data-video2');
           mainVideo2.play();
+          mainVideo3.src = this.getAttribute('data-video3');
+          mainVideo3.play();
 
           // Update the current thumbnail index
           currentThumbnail = index;
