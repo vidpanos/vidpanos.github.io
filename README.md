@@ -3,7 +3,7 @@
 
 This is the official repository for SIGGRAPH Asia 2024 paper, "VidPanos: Generative Panoramic Videos from Casual Panning Videos". We release our test videos and evaluation code as a benchmark for the Panoramic Video Completion task.
 
-<img src="./assets/teaser.gif" height="176px"/>
+<img src="./assets/teaser_v2.gif" width="720px"/>
 
 ### Evaluation Code
 We release an [evaluation colab](https://colab.research.google.com/drive/1yPWg5-5iNkZBglD9m4yZxgDUoE27kfbX?usp=sharing) and [relevant files](https://drive.google.com/drive/folders/1u03i6w5ZdwxBOQK2FsWC6el365ysHv2Z?usp=sharing) (result/gt videos) for running it.
